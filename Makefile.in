@@ -1,0 +1,19 @@
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+prefix = @prefix@
+datarootdir = @datarootdir@
+datadir = @datadir@
+
+.PHONY: all check-style test
+
+all:
+
+
+check-style:
+	@ cppcheck --enable=warning,performance,portability --platform=unix64 src/
+
+test: test-matrix
+	./test-matrix
+
+test-matrix: test/matrix.cpp src/matrix.cpp
+	$(CXX) -o $Q $^

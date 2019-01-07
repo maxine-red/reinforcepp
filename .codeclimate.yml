@@ -1,0 +1,19 @@
+plugins:
+  cppcheck:
+    enabled: true
+    check:
+      - warning
+      - performance
+      - portability
+    stds:
+      - c++11
+    language:
+      - c++
+    platform:
+      - unix64
+    includes:
+      - include/
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
