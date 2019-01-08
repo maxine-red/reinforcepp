@@ -32,7 +32,7 @@ test: matrix.test
 	@./matrix.test
        
 coverage: matrix.test
-	gcov -a -u -b -c -f -m matrix.cpp
+	gcov -a -u -b -c matrix.cpp
 	lcov -c --directory . -o reinforce.info
 	lcov -e reinforce.info '$(CURDIR)/*' -o reinforce_filter.info
 	lcov --summary reinforce_filter.info
