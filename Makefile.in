@@ -9,12 +9,21 @@ VPATH = src:include
 vpath %.cpp src
 vpath %.hpp include
 
-.PHONY: all clean install check-style coverage test %.test
+.PHONY: all clean install check-style coverage documentation test %.test
 
 all:
 
+documentation:
+	@doxygen .doxy.cfg
+
 clean:
 	@rm *.test *.o *.gc?? test/*.o *.info
+
+love:
+	@echo '<3'
+
+friends:
+	@echo '^-^'
 
 check-style:
 	@ cppcheck --enable=warning,performance,portability --platform=unix64 src/

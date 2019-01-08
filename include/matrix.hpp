@@ -22,10 +22,8 @@
 
 #ifndef MATRIX_H
 #define MATRIX_H
-/**
- * A class to hold Matrix information and allow saving/loading matrices.
- * @author Maxine Michalski
- */
+
+/** A class to hold Matrix information and allow saving/loading matrices. */
 class Matrix {
 	public:
 		unsigned int rows, columns;

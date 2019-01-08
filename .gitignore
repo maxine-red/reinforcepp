@@ -48,3 +48,6 @@ config.status
 # lcov files
 *.info
 coverage/
+
+# Documentaion
+documentation/
