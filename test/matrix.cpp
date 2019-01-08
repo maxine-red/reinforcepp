@@ -17,25 +17,14 @@
  *  along with reinforce++.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
-#include <random>
+#include <criterion/criterion.h>
+#include "../include/matrix.hpp"
 
-#ifndef MATRIX_H
-#define MATRIX_H
-/**
- * A class to hold Matrix information and allow saving/loading matrices.
- * @author Maxine Michalski
- */
-class Matrix {
-	public:
-		unsigned int rows, columns;
-		std::vector<double> content,  deltas;
-		Matrix(unsigned int r, unsigned int c);
-		void randomize(double mu, double std);
-		double get(int row, int col);
-		void set(int row, int col, double val);
-		void update(double alpha);
-	private:
-};
+unsigned int r = 9;
+unsigned int c = 12;
 
-#endif // MATRIX_H
+Test(Matrix, construct) {
+	Matrix mat(r, c);
+	cr_expect(mat.rows == r, "Row count is supposed to be 9");
+	cr_expect(mat.columns == c, "Column count is supposed to be 12");
+}

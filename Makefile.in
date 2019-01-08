@@ -1,19 +1,39 @@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
+TESTFLAGS = @TESTFLAGS@ -lgcov
 prefix = @prefix@
 datarootdir = @datarootdir@
 datadir = @datadir@
 
-.PHONY: all check-style test
+VPATH = src:include
+vpath %.cpp src
+vpath %.hpp include
+
+.PHONY: all clean install check-style coverage test %.test
 
 all:
 
+clean:
+	@rm *.test *.o *.gc?? test/*.o *.info
 
 check-style:
 	@ cppcheck --enable=warning,performance,portability --platform=unix64 src/
 
-test: test-matrix
-	./test-matrix
+test: matrix.test
+	@./matrix.test
+       
+coverage: matrix.test
+	gcov -a -u -b -c -f -m matrix.cpp
+	lcov -c --directory . -o reinforce.info
+	lcov -e reinforce.info '$(CURDIR)/*' -o reinforce_filter.info
+	lcov --summary reinforce_filter.info
+	genhtml reinforce_filter.info --output-directory coverage
 
-test-matrix: test/matrix.cpp src/matrix.cpp
-	$(CXX) -o $Q $^
+%.o: %.cpp %.hpp
+	$(CXX) -o $@ -c $< $(CXXFLAGS)
+
+test/%.o: %.cpp %.hpp
+	$(CXX) -o $@ -c $< $(TESTFLAGS)
+
+%.test: test/%.cpp test/%.o
+	$(CXX) -o $@ $^ $(TESTFLAGS) -lcriterion

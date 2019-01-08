@@ -36,3 +36,15 @@ Makefile
 autom4te.cache/
 *.log
 config.status
+
+# Test files
+*.test
+
+# gcov files
+*.gcno
+*.gcda
+*.gcov
+
+# lcov files
+*.info
+coverage/
