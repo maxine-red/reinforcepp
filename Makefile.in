@@ -1,5 +1,5 @@
 CXXFLAGS = @CXXFLAGS@
-TESTFLAGS = @TESTFLAGS@ -lgcov
+TESTFLAGS = @TESTFLAGS@
 prefix = @prefix@
 datarootdir = @datarootdir@
 datadir = @datadir@
@@ -16,7 +16,7 @@ documentation:
 	@doxygen .doxy.cfg
 
 clean:
-	@rm *.test *.o *.gc?? test/*.o *.info
+	@rm *.test *.o *.gc?? *.info
 
 love:
 	@echo '<3'
@@ -41,8 +41,5 @@ coverage: matrix.test
 %.o: %.cpp %.hpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
 
-test/%.o: %.cpp %.hpp
-	$(CXX) -o $@ -c $< $(TESTFLAGS)
-
-%.test: test/%.cpp test/%.o
+%.test: test/%.cpp %.o
 	$(CXX) -o $@ $^ $(TESTFLAGS) -lcriterion
