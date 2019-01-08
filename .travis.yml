@@ -1,7 +1,7 @@
 language: cpp
 before_install:
-  - sudo add-apt-repository ppa:snaipewastaken/ppa && sudo apt-get update && sudo apt-get install criterion-dev gcov lcov
-  - sudo apt-get install jq
+  - sudo apt-get -y install jq software-properties-common
+  - sudo add-apt-repository ppa:snaipewastaken/ppa && sudo apt-get update && sudo apt-get install -y criterion-dev gcov lcov
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets[0].browser_download_url')
 after_script:
   - make coverage
