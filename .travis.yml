@@ -4,7 +4,7 @@ before_install:
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
 after_script:
   - make coverage
-  - codacy-coverage-reporter report --language CPP --force-language -r coverage.xml
+  - java ~/codacy-coverage-reporter report --language CPP --force-language -r coverage.xml
 compiler:
   - gcc
   - clang
