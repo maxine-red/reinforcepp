@@ -36,7 +36,7 @@ coverage: matrix.test
 	lcov -e reinforce.info '$(CURDIR)/*' -o reinforce_filter.info
 	lcov --summary reinforce_filter.info
 	genhtml reinforce_filter.info --output-directory coverage
-	gcovr -x -o coverage.xml -r src/ include/ test/
+	gcovr -x -o coverage.xml -r .
 
 %.o: %.cpp %.hpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
