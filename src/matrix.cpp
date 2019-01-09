@@ -33,11 +33,11 @@ Matrix::Matrix(unsigned int r, unsigned int c) : rows(r), columns(c) {
 void Matrix::randomize(double mu, double std) {
 	std::default_random_engine generator;
 	std::normal_distribution<double> distribution(mu, std);
-	double r;
+	double r = 0.0;
 	for (unsigned int i =  0; i < content.size(); i++) {
-		do {
+		while (r == 0.0) {
 			r = distribution(generator);
-		} while (r == 0.0);
+		}
 		content[i] = r;
 	}
 }
@@ -51,7 +51,7 @@ void Matrix::set(int row, int col, double val) {
 }
 
 void Matrix::update(double alpha) {
-	for (unsigned int i = 0; content.size(); i++) {
+	for (unsigned int i = 0; i < content.size(); i++) {
 		if (deltas[i] != 0.0) {
 			content[i] -= alpha * deltas[i];
 			deltas[i] = 0.0;
