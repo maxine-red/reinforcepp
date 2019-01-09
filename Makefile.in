@@ -2,7 +2,6 @@ CXXFLAGS = @CXXFLAGS@
 TESTFLAGS = @TESTFLAGS@
 prefix = @prefix@
 LLVMCOV = @llvmcov@
-COV = gcov -a -u -b -c matrix.cpp
 datarootdir = @datarootdir@
 datadir = @datadir@
 
@@ -10,7 +9,7 @@ VPATH = src:include
 vpath %.cpp src
 vpath %.hpp include
 
-.PHONY: all clean install check-style coverage documentation test %.test
+.PHONY: all clean install check-style coverage documentation test
 
 all:
 
@@ -33,27 +32,31 @@ friends:
 check-style:
 	@ cppcheck --enable=warning,performance,portability --platform=unix64 src/
 
-test: matrix.test
-	@./matrix.test
+test: clean reinforce.test
+	@./reinforce.test
        
-coverage: matrix.test
-ifeq ($(CXX),g++)
-	$(COV)
+coverage: test
+ifneq ($(CXX),g++)
+	@echo "Only g++ is supported for coverage generation!"
+	@exit 1
+endif
+	gcov -a -u -b -c src/*
 	lcov -c --directory . -o reinforce.info
 	lcov -e reinforce.info '$(CURDIR)/*' -o reinforce_filter.info
 	lcov --summary reinforce_filter.info
 	genhtml reinforce_filter.info --output-directory coverage
-else
-# Sorry, no HTML coverage output for clang. It just presented too bothersome.
-	$(LLVMCOV) $(COV)
-endif
 	gcovr -x -o coverage.xml -r .
 
 %.o: %.cpp %.hpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
 
-test/%.o: %.cpp %.hpp
+# Testing rules.
+# These are always with -O0 to ensure that coverage data is correct.
+src/%.o: %.cpp %.hpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS) $(TESTFLAGS)
 
-%.test: test/%.cpp test/%.o
+test/%.o: test/%.cpp %.hpp
+	$(CXX) -o $@ -c $< $(CXXFLAGS) $(TESTFLAGS)
+
+reinforce.test: test/matrix.o src/matrix.o test/graph.o src/graph.o
 	$(CXX) -o $@ $^ $(TESTFLAGS) -lcriterion
