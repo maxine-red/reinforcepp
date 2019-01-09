@@ -1,6 +1,15 @@
 # Reinforcejs: Reinforcement learning for C++
 
-<!-- Bades: travis build, github version, github release date, last commit date, codeclimate maintainability, codeclimate test coverage -->
+[![Travis build](https://img.shields.io/travis/maxine-red/reinforcepp.svg)](https://travis-ci.org/maxine-red/reinforcepp)
+[![License](https://img.shields.io/github/license/maxine-red/reinforcepp.svg)](https://github.com/maxine-red/reinforcepp/blob/master/LICENSE)
+
+[![Codacy Badge](https://img.shields.io/codacy/grade/1c200b70046c41b6a6a08968bf87f003.svg)](https://www.codacy.com/app/maxine-red/reinforcepp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maxine-red/reinforcepp&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage](https://img.shields.io/codacy/coverage/1c200b70046c41b6a6a08968bf87f003.svg)](https://www.codacy.com/app/maxine-red/reinforcepp?utm_source=github.com&utm_medium=referral&utm_content=maxine-red/reinforcepp&utm_campaign=Badge_Coverage)
+
+[![Github Release Version](https://img.shields.io/github/release/maxine-red/reinforcepp.svg)](https://github.com/maxine-red/reinforcepp/releases)
+[![Github Release Date](https://img.shields.io/github/release-date/maxine-red/reinforcepp.svg)](https://github.com/maxine-red/reinforcepp/releases)
+[![Github Last Commit](https://img.shields.io/github/last-commit/maxine-red/reinforcepp.svg)](https://github.com/maxine-red/reinforcepp)
+
 
 ## Description
 
