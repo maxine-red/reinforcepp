@@ -1,6 +1,8 @@
 CXXFLAGS = @CXXFLAGS@
 TESTFLAGS = @TESTFLAGS@
 prefix = @prefix@
+LLVMCOV = @llvmcov@
+COV = gcov -a -u -b -c matrix.cpp
 datarootdir = @datarootdir@
 datadir = @datadir@
 
@@ -16,7 +18,11 @@ documentation:
 	@doxygen .doxy.cfg
 
 clean:
-	@rm *.test *.o *.gc?? *.info
+	@find . -name "*.test" -delete
+	@find . -name "*.o" -delete
+	@find . -name "*.gc??" -delete
+	@find . -name "*.info" -delete
+	@find . -name "*.profraw" -delete
 
 love:
 	@echo '<3'
@@ -31,15 +37,23 @@ test: matrix.test
 	@./matrix.test
        
 coverage: matrix.test
-	gcov -a -u -b -c matrix.cpp
+ifeq ($(CXX),g++)
+	$(COV)
 	lcov -c --directory . -o reinforce.info
 	lcov -e reinforce.info '$(CURDIR)/*' -o reinforce_filter.info
 	lcov --summary reinforce_filter.info
 	genhtml reinforce_filter.info --output-directory coverage
+else
+# Sorry, no HTML coverage output for clang. It just presented too bothersome.
+	$(LLVMCOV) $(COV)
+endif
 	gcovr -x -o coverage.xml -r .
 
 %.o: %.cpp %.hpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
 
-%.test: test/%.cpp %.o
+test/%.o: %.cpp %.hpp
+	$(CXX) -o $@ -c $< $(CXXFLAGS) $(TESTFLAGS)
+
+%.test: test/%.cpp test/%.o
 	$(CXX) -o $@ $^ $(TESTFLAGS) -lcriterion

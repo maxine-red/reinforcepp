@@ -17,10 +17,12 @@ addons:
   apt:
     packages:
       - lcov
+      - gcovr
   homebrew:
     packages:
       - snaipe/soft/criterion
       - lcov
+      - gcovr
 jobs:
   include:
     stage: Report

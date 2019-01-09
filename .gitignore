@@ -45,6 +45,9 @@ config.status
 *.gcda
 *.gcov
 
+# llvm gcov files
+*.profraw
+
 # lcov files
 *.info
 coverage/
