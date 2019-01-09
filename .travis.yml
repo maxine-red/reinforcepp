@@ -4,7 +4,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -q ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install criterion-dev ; fi
 after_script:
-  - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "$CXX" == "g++" ]]; then wget -O ~/codacy-coverage-reporter&&ssembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5&&ssembly.jar ; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "$CXX" == "g++" ]]; then wget -O ~/codacy-coverage-reporter&&ssembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar ; fi
   - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "$CXX" == "g++" ]]; then make coverage ; fi
   - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "$CXX" == "g++" ]]; then java -jar ~/codacy-coverage-reporter&&ssembly-latest.jar report --language CPP --force-language -r coverage.xml ; fi
 compiler:
