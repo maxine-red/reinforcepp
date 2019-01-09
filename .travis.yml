@@ -27,4 +27,5 @@ jobs:
     if: branch = master
     install: skip
     script:
-     = java ~/codacy-coverage-reporter report final
+      - java ~/codacy-coverage-reporter report final
+    after_script: skip
