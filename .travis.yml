@@ -3,10 +3,10 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:snaipewastaken/ppa ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -q ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install criterion-dev ; fi
-  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
+  - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "CXX" == "g++"]]; then wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar ; fi
 after_script:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then make coverage ; fi
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then java -jar ~/codacy-coverage-reporter-assembly-latest.jar report --language CPP --force-language -r coverage.xml --partial ; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "CXX" == "g++"]]; then make coverage ; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS_NAME" == "linux" && "CXX" == "g++"]]; then java -jar ~/codacy-coverage-reporter-assembly-latest.jar report --language CPP --force-language -r coverage.xml ; fi
 compiler:
   - gcc
   - clang
@@ -23,11 +23,3 @@ addons:
       - snaipe/soft/criterion
       - lcov
       - gcovr
-jobs:
-  include:
-    stage: Report
-    if: branch = master
-    install: skip
-    script:
-      - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report final
-    after_script: skip
