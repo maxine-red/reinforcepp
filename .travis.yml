@@ -6,7 +6,7 @@ before_install:
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
 after_script:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then make coverage ; fi
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then java ~/codacy-coverage-reporter report --language CPP --force-language -r coverage.xml --partial ; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then java -jar ~/codacy-coverage-reporter report --language CPP --force-language -r coverage.xml --partial ; fi
 compiler:
   - gcc
   - clang
@@ -27,5 +27,5 @@ jobs:
     if: branch = master
     install: skip
     script:
-      - java ~/codacy-coverage-reporter report final
+      - java -jar ~/codacy-coverage-reporter report final
     after_script: skip
