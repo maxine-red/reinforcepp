@@ -5,9 +5,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install criterion-dev ; fi
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
 after_script:
-  if: branch = master
-  - make coverage
-  - java ~/codacy-coverage-reporter report --language CPP --force-language -r coverage.xml --partial
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then make coverage ; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then java ~/codacy-coverage-reporter report --language CPP --force-language -r coverage.xml --partial ; fi
 compiler:
   - gcc
   - clang
